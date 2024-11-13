@@ -16,13 +16,14 @@
 
     if (result instanceof Client) {
         session.setAttribute("client", result);
-        RequestDispatcher dispatcher = request.getRequestDispatcher("clientHome.jsp");
-        dispatcher.forward(request, response);
+        response.sendRedirect("client/clientHome.jsp");
     } else if (result instanceof User) {
         session.setAttribute("user", result);
         RequestDispatcher dispatcher = request.getRequestDispatcher("receptionistHome.jsp");
         dispatcher.forward(request, response);
     } else {
-        System.out.println("Login failed. Please try again.");
+        session.setAttribute("loginUsername", username);
+        session.setAttribute("loginPassword", password);
+        response.sendRedirect("login.jsp?error=1");
     }
 %>

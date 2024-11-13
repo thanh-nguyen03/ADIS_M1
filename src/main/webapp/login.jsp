@@ -5,7 +5,7 @@
   Time: 15:16
   To change this template use File | Settings | File Templates.
 --%>
-<%@ page contentType="text/html; charset=UTF-8" language="java" %>
+<%@ page contentType="text/html; charset=UTF-8" %>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -16,7 +16,6 @@
     <style>
         body {
             font-family: 'Arial', sans-serif;
-            background: #f0f4f8;
             margin: 0;
             padding: 0;
             display: flex;
@@ -82,6 +81,11 @@
         .btn:hover {
             background-color: #97151a;
         }
+
+        .error-message {
+            color: #97151a;
+            margin-bottom: 20px;
+        }
     </style>
 </head>
 <body>
@@ -90,20 +94,34 @@
     <h1>Login</h1>
 
     <!-- JSP form -->
-    <form action="doLogin.jsp" method="post">
+    <form action="doLogin.jsp" method="post" onsubmit="setLoadingState()">
         <div class="input-group">
             <label for="username">Username</label>
-            <input type="text" id="username" name="username" required>
+            <input type="text" id="username" name="username"
+                   value="<%= session.getAttribute("loginUsername") != null ? session.getAttribute("loginUsername") : "" %>"
+                   required>
         </div>
 
         <div class="input-group">
             <label for="password">Password</label>
-            <input type="password" id="password" name="password" required>
+            <input type="password" id="password" name="password"
+                   value="<%= session.getAttribute("loginPassword") != null ? session.getAttribute("loginPassword") : "" %>"
+                   required>
         </div>
 
-        <button type="submit" class="btn">Login</button>
+        <button type="submit" id="loginButton" class="btn">Login</button>
+        <% if (request.getParameter("error") != null) { %>
+        <div class="error-message">Invalid username or password. Please try again.</div>
+        <% } %>
     </form>
 
+    <script>
+			function setLoadingState() {
+				const loginButton = document.getElementById('loginButton');
+				loginButton.disabled = true;
+				loginButton.textContent = 'Loading...';
+			}
+    </script>
 </div>
 
 </body>

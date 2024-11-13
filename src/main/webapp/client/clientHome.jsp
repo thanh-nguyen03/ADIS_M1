@@ -15,7 +15,6 @@
     <style>
         body {
             font-family: 'Arial', sans-serif;
-            background: #f0f4f8;
             margin: 0;
             padding: 0;
             display: flex;
@@ -50,7 +49,7 @@
 <h3>
     Welcome <%= ((Client) session.getAttribute("client")).getFullName() %>
 </h3>
-<button onclick="window.location.href='bookAppointment.jsp'">Book Appointment</button>
+<button onclick="window.location.href='searchSlot.jsp'">Book Appointment</button>
 <button onclick="window.location.href='chooseDoctorAndServices.jsp'">Choose Doctor and Services</button>
 </body>
 </html>
