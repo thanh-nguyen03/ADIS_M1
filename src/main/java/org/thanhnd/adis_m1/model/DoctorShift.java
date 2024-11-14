@@ -83,4 +83,16 @@ public class DoctorShift {
 	public void setRoom(Room room) {
 		this.room = room;
 	}
+
+	@Override
+	public String toString() {
+		return "DoctorShift{" +
+			"id=" + id +
+			", shiftPrice=" + shiftPrice +
+			", maxNumberOfPatients=" + maxNumberOfPatients +
+			", doctor=" + doctor +
+			", shift=" + shift +
+			", room=" + room +
+			'}';
+	}
 }

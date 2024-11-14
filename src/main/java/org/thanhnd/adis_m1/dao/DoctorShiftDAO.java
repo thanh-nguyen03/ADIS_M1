@@ -12,9 +12,15 @@ public class DoctorShiftDAO extends DAO {
 	}
 
 	public void create(DoctorShift doctorShift) {
-		session.beginTransaction();
-		session.persist(doctorShift);
-		session.getTransaction().commit();
+		try {
+			getSession().beginTransaction();
+			getSession().persist(doctorShift);
+			getSession().flush();
+			getSession().getTransaction().commit();
+		} catch (Exception e) {
+			e.printStackTrace();
+			getSession().getTransaction().rollback();
+		}
 	}
 
 	public List<DoctorShift> searchShift(LocalDate date) {

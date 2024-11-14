@@ -32,6 +32,7 @@
         <mapping class="org.thanhnd.adis_m1.model.Shift"/>
         <mapping class="org.thanhnd.adis_m1.model.Room"/>
         <mapping class="org.thanhnd.adis_m1.model.DoctorShift"/>
+        <mapping class="org.thanhnd.adis_m1.model.Appointment"/>
 
     </session-factory>
 </hibernate-configuration>

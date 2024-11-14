@@ -8,9 +8,15 @@ public class DoctorDAO extends DAO {
 	}
 
 	public void create(Doctor doctor) {
-		session.beginTransaction();
-		session.persist(doctor);
-		session.getTransaction().commit();
+		try {
+			getSession().beginTransaction();
+			getSession().persist(doctor);
+			getSession().flush();
+			getSession().getTransaction().commit();
+		} catch (Exception e) {
+			e.printStackTrace();
+			getSession().getTransaction().rollback();
+		}
 	}
 
 	public Doctor findById(Integer id) {

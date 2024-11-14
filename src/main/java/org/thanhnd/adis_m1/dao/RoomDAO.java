@@ -8,9 +8,15 @@ public class RoomDAO extends DAO {
 	}
 
 	public void create(Room room) {
-		session.beginTransaction();
-		session.persist(room);
-		session.getTransaction().commit();
+		try {
+			getSession().beginTransaction();
+			getSession().persist(room);
+			getSession().flush();
+			getSession().getTransaction().commit();
+		} catch (Exception e) {
+			e.printStackTrace();
+			getSession().getTransaction().rollback();
+		}
 	}
 
 	public Room findById(Integer id) {

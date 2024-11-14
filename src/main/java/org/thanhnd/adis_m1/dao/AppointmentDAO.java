@@ -1,21 +1,22 @@
 package org.thanhnd.adis_m1.dao;
 
-import org.thanhnd.adis_m1.model.Client;
+import org.thanhnd.adis_m1.model.Appointment;
 
-public class ClientDAO extends DAO {
-	public ClientDAO() {
+public class AppointmentDAO extends DAO {
+	public AppointmentDAO() {
 		super();
 	}
 
-	public void create(Client client) {
+	public boolean create(Appointment appointment) {
 		try {
 			getSession().beginTransaction();
-			getSession().persist(client);
+			getSession().persist(appointment);
 			getSession().flush();
 			getSession().getTransaction().commit();
+			return true;
 		} catch (Exception e) {
-			e.printStackTrace();
 			getSession().getTransaction().rollback();
 		}
+		return false;
 	}
 }

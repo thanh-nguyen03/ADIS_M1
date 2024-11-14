@@ -2,14 +2,37 @@
 <%@ page import="java.util.List" %>
 <%@ page import="org.thanhnd.adis_m1.model.DoctorShift" %>
 <%@ page import="java.time.LocalDate" %>
-<%@ page import="java.time.format.DateTimeFormatter" %><%--
+<%@ page import="java.time.format.DateTimeFormatter" %>
+<%@ page import="org.thanhnd.adis_m1.model.Appointment" %>
+<%@ page import="org.thanhnd.adis_m1.model.Client" %>
+<%--
   Created by IntelliJ IDEA.
   User: thanhnguyenduc
   Date: 13/11/24
   Time: 14:14
   To change this template use File | Settings | File Templates.
 --%>
-<%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%@ page contentType="text/html;charset=UTF-8" %>
+<%
+    if (session.getAttribute("client") == null) {
+        response.sendRedirect("login.jsp");
+    }
+
+    if (request.getParameter("selectedShiftId") != null) {
+        Integer selectedShiftId = Integer.parseInt(request.getParameter("selectedShiftId"));
+        List<DoctorShift> doctorShifts = (List<DoctorShift>) session.getAttribute("doctorShifts");
+        DoctorShift selectedDoctorShift = doctorShifts
+                .stream()
+                .filter(ds -> ds.getId().equals(selectedShiftId))
+                .findFirst().orElse(null);
+        Appointment appointment = new Appointment();
+        Client client = (Client) session.getAttribute("client");
+        appointment.setDoctorShift(selectedDoctorShift);
+        appointment.setClient(client);
+        session.setAttribute("appointment", appointment);
+        response.sendRedirect("bookingConfirm.jsp");
+    }
+%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -61,6 +84,10 @@
 
         .appointment-table th {
             background-color: #f2f2f2;
+        }
+
+        .appointment-table tbody tr {
+            cursor: pointer;
         }
 
         .button-group {
@@ -116,10 +143,11 @@
         <%
         } else {
             int index = 1;
+            session.setAttribute("doctorShifts", doctorShifts);
             DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm");
             for (DoctorShift doctorShift : doctorShifts) {
         %>
-        <tr>
+        <tr id="ds_<%=index%>" onclick="handleSelectSlot('<%= doctorShift.getId() %>')">
             <td><%= index++ %>
             </td>
             <td><%= doctorShift.getShift().getStartTime().format(formatter) %>
@@ -138,7 +166,7 @@
 
     <div class="button-group">
         <button type="button" class="back-btn" onclick="window.location.href='clientHome.jsp'">Back</button>
-        <button type="button" class="next-btn">Next</button>
+        <button type="button" class="next-btn" onclick="goToNextScreen()">Next</button>
     </div>
 </div>
 
@@ -152,6 +180,35 @@
 			window.location.href = 'searchSlot.jsp?date=' + date;
 		}
 	}
+
+		let selectedShift = null;
+		let selectedShiftId = null;
+
+		function handleSelectSlot(idSelected) {
+			if (selectedShift) {
+				selectedShift.style.backgroundColor = '';
+			}
+
+			selectedShift = document.getElementById("ds_" + idSelected);
+
+			if (selectedShiftId === idSelected) {
+				selectedShift.style.backgroundColor = '';
+				selectedShiftId = null;
+				return false;
+			}
+
+			selectedShift.style.backgroundColor = '#f2f2f2';
+			selectedShiftId = idSelected;
+			return true;
+		}
+
+		function goToNextScreen() {
+			if (selectedShiftId) {
+				window.location.href = 'searchSlot.jsp?selectedShiftId=' + selectedShiftId;
+			} else {
+				alert('Please select a shift first.');
+			}
+		}
 </script>
 </body>
 </html>

@@ -32,4 +32,6 @@ public class Client extends User {
 	public void setPhone(String phone) {
 		this.phone = phone;
 	}
+
+
 }

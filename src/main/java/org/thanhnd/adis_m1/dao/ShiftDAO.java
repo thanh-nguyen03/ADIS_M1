@@ -8,9 +8,15 @@ public class ShiftDAO extends DAO {
 	}
 
 	public void create(Shift shift) {
-		session.beginTransaction();
-		session.persist(shift);
-		session.getTransaction().commit();
+		try {
+			getSession().beginTransaction();
+			getSession().persist(shift);
+			getSession().flush();
+			getSession().getTransaction().commit();
+		} catch (Exception e) {
+			e.printStackTrace();
+			getSession().getTransaction().rollback();
+		}
 	}
 
 	public Shift findById(Integer id) {
