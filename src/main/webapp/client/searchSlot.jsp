@@ -147,7 +147,7 @@
             DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm");
             for (DoctorShift doctorShift : doctorShifts) {
         %>
-        <tr id="ds_<%=index%>" onclick="handleSelectSlot('<%= doctorShift.getId() %>')">
+        <tr id="ds_<%=doctorShift.getId()%>" onclick="handleSelectSlot('<%= doctorShift.getId() %>')">
             <td><%= index++ %>
             </td>
             <td><%= doctorShift.getShift().getStartTime().format(formatter) %>
@@ -181,34 +181,34 @@
 		}
 	}
 
-		let selectedShift = null;
-		let selectedShiftId = null;
+	let selectedShift = null;
+	let selectedShiftId = null;
 
-		function handleSelectSlot(idSelected) {
-			if (selectedShift) {
-				selectedShift.style.backgroundColor = '';
-			}
-
-			selectedShift = document.getElementById("ds_" + idSelected);
-
-			if (selectedShiftId === idSelected) {
-				selectedShift.style.backgroundColor = '';
-				selectedShiftId = null;
-				return false;
-			}
-
-			selectedShift.style.backgroundColor = '#f2f2f2';
-			selectedShiftId = idSelected;
-			return true;
+	function handleSelectSlot(idSelected) {
+		if (selectedShift) {
+			selectedShift.style.backgroundColor = '';
 		}
 
-		function goToNextScreen() {
-			if (selectedShiftId) {
-				window.location.href = 'searchSlot.jsp?selectedShiftId=' + selectedShiftId;
-			} else {
-				alert('Please select a shift first.');
-			}
+		selectedShift = document.getElementById("ds_" + idSelected);
+
+		if (selectedShiftId === idSelected) {
+			selectedShift.style.backgroundColor = '';
+			selectedShiftId = null;
+			return false;
 		}
+
+		selectedShift.style.backgroundColor = '#f2f2f2';
+		selectedShiftId = idSelected;
+		return true;
+	}
+
+	function goToNextScreen() {
+		if (selectedShiftId) {
+			window.location.href = 'searchSlot.jsp?selectedShiftId=' + selectedShiftId;
+		} else {
+			alert('Please select a shift first.');
+		}
+	}
 </script>
 </body>
 </html>

@@ -1,11 +1,23 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="DataSourceManagerImpl" format="xml" multifile-model="true">
-    <data-source source="LOCAL" name="adis_m1_clinic@0.tcp.ap.ngrok.io" uuid="ebf02898-7d6e-4c49-be15-a3f3d309fc39">
+    <data-source source="LOCAL" name="adis_m1_clinic@mysql.thanhnguyen03.site" uuid="ebf02898-7d6e-4c49-be15-a3f3d309fc39">
       <driver-ref>mysql.8</driver-ref>
       <synchronize>true</synchronize>
       <jdbc-driver>com.mysql.cj.jdbc.Driver</jdbc-driver>
-      <jdbc-url>jdbc:mysql://0.tcp.ap.ngrok.io:17108/adis_m1_clinic</jdbc-url>
+      <jdbc-url>jdbc:mysql://mysql.thanhnguyen03.site:3306/adis_m1_clinic</jdbc-url>
+      <jdbc-additional-properties>
+        <property name="com.intellij.clouds.kubernetes.db.host.port" />
+        <property name="com.intellij.clouds.kubernetes.db.enabled" value="false" />
+        <property name="com.intellij.clouds.kubernetes.db.container.port" />
+      </jdbc-additional-properties>
+      <working-dir>$ProjectFileDir$</working-dir>
+    </data-source>
+    <data-source source="LOCAL" name="adis_m1@localhost" uuid="02519caf-465b-4209-9eed-f74a799b0f56">
+      <driver-ref>mysql.8</driver-ref>
+      <synchronize>true</synchronize>
+      <jdbc-driver>com.mysql.cj.jdbc.Driver</jdbc-driver>
+      <jdbc-url>jdbc:mysql://localhost:3306/adis_m1</jdbc-url>
       <jdbc-additional-properties>
         <property name="com.intellij.clouds.kubernetes.db.host.port" />
         <property name="com.intellij.clouds.kubernetes.db.enabled" value="false" />

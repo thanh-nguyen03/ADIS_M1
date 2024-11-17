@@ -7,7 +7,7 @@
     <session-factory>
         <property name="connection.driver_class">com.mysql.jdbc.Driver</property>
         <property name="connection.url">
-            jdbc:mysql://0.tcp.ap.ngrok.io:17108/adis_m1_clinic
+            jdbc:mysql://localhost:3306/adis_m1
         </property>
         <property name="hibernate.connection.characterEncoding">UTF-8</property>
         <property name="hibernate.connection.autoReconnect">true</property>
@@ -33,6 +33,9 @@
         <mapping class="org.thanhnd.adis_m1.model.Room"/>
         <mapping class="org.thanhnd.adis_m1.model.DoctorShift"/>
         <mapping class="org.thanhnd.adis_m1.model.Appointment"/>
+        <mapping class="org.thanhnd.adis_m1.model.Service"/>
+        <mapping class="org.thanhnd.adis_m1.model.DoctorService"/>
+        <mapping class="org.thanhnd.adis_m1.model.AppointmentService"/>
 
     </session-factory>
 </hibernate-configuration>

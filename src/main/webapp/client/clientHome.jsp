@@ -50,6 +50,6 @@
     Welcome <%= ((Client) session.getAttribute("client")).getFullName() %>
 </h3>
 <button onclick="window.location.href='searchSlot.jsp'">Book Appointment</button>
-<button onclick="window.location.href='chooseDoctorAndServices.jsp'">Choose Doctor and Services</button>
+<button onclick="window.location.href='appointmentList.jsp'">Choose Doctor and Services</button>
 </body>
 </html>

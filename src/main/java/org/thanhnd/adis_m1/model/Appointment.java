@@ -3,6 +3,7 @@ package org.thanhnd.adis_m1.model;
 import jakarta.persistence.*;
 
 import java.time.LocalDateTime;
+import java.util.List;
 
 @Entity
 @Table(name = "tbl_appointment")
@@ -22,15 +23,20 @@ public class Appointment {
 	@JoinColumn(name = "doctor_shift_id", referencedColumnName = "id")
 	private DoctorShift doctorShift;
 
+	@OneToMany(mappedBy = "appointment")
+	private List<AppointmentService> services;
+
 	public Appointment() {
+
 	}
 
-	public Appointment(Integer id, LocalDateTime startTime, LocalDateTime endTime, Client client, DoctorShift doctorShift) {
+	public Appointment(Integer id, LocalDateTime startTime, LocalDateTime endTime, Client client, DoctorShift doctorShift, List<AppointmentService> services) {
 		this.id = id;
 		this.startTime = startTime;
 		this.endTime = endTime;
 		this.client = client;
 		this.doctorShift = doctorShift;
+		this.services = services;
 	}
 
 	public Integer getId() {
@@ -73,6 +79,14 @@ public class Appointment {
 		this.doctorShift = doctorShift;
 	}
 
+	public List<AppointmentService> getServices() {
+		return services;
+	}
+
+	public void setServices(List<AppointmentService> services) {
+		this.services = services;
+	}
+
 	@Override
 	public String toString() {
 		return "Appointment{" +
@@ -81,6 +95,7 @@ public class Appointment {
 			", endTime=" + endTime +
 			", client=" + client +
 			", doctorShift=" + doctorShift +
+			", services=" + services +
 			'}';
 	}
 }
